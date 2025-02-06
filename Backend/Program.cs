@@ -1,5 +1,6 @@
 using Backend.Data;
 using Backend.DTOs;
+using Backend.Services;
 using Backend.Validadores;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
@@ -7,11 +8,12 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
+builder.Services.AddScoped<IBeerServices,BeerServices>();   
 builder.Services.AddControllers();
 
 //Entity framework
 builder.Services.AddDbContext<StoreContext>(option => option.UseSqlServer(builder.Configuration.GetConnectionString("StoreConetions")));
+
 
 //Validadores
 builder.Services.AddScoped<IValidator<BeerInsertDto>,BeerInsertValidador>();
